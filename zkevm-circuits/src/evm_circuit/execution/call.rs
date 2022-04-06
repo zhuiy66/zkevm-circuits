@@ -692,13 +692,23 @@ mod test {
     #[test]
     fn call_gadget_recursive() {
         test_ok(
-            caller(
-                Stack {
-                    gas: 100000,
-                    ..Default::default()
-                },
-                false,
-            ),
+            Account {
+                address: Address::repeat_byte(0xfe),
+                balance: Word::from(10).pow(20.into()),
+                code: bytecode! {
+                    PUSH1(0)
+                    PUSH1(0)
+                    PUSH1(0)
+                    PUSH1(0)
+                    PUSH1(0)
+                    PUSH32(Address::repeat_byte(0xff).to_word())
+                    PUSH2(10000)
+                    CALL
+                    STOP
+                }
+                .into(),
+                ..Default::default()
+            },
             // The following bytecode calls itself recursively if gas_left is greater than 100, and
             // halts with REVERT if gas_left is odd, otherwise just halts with STOP.
             callee(bytecode! {
