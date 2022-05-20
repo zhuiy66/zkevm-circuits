@@ -157,7 +157,7 @@ pub mod test {
         dev::{MockProver, VerifyFailure},
         pairing::bn256::Fr as Fp,
         plonk::{Advice, Circuit, Column, ConstraintSystem, Error},
-        poly::Rotation,
+        // poly::Rotation,
     };
     use itertools::Itertools;
     use rand::{
@@ -381,19 +381,20 @@ pub mod test {
             let bytecode_table = [(); 5].map(|_| meta.advice_column());
             let block_table = [(); 3].map(|_| meta.advice_column());
 
-            let power_of_randomness = {
-                let columns = [(); 31].map(|_| meta.instance_column());
-                let mut power_of_randomness = None;
+            // let power_of_randomness = {
+            //     let columns = [(); 31].map(|_| meta.instance_column());
+            //     let mut power_of_randomness = None;
 
-                meta.create_gate("", |meta| {
-                    power_of_randomness =
-                        Some(columns.map(|column| meta.query_instance(column, Rotation::cur())));
+            //     meta.create_gate("", |meta| {
+            //         power_of_randomness =
+            //             Some(columns.map(|column| meta.query_instance(column,
+            // Rotation::cur())));
 
-                    [0.expr()]
-                });
+            //         [0.expr()]
+            //     });
 
-                power_of_randomness.unwrap()
-            };
+            //     power_of_randomness.unwrap()
+            // };
 
             Self::Config {
                 tx_table,
@@ -402,7 +403,7 @@ pub mod test {
                 block_table,
                 evm_circuit: EvmCircuit::configure(
                     meta,
-                    power_of_randomness,
+                    [(); 31].map(|_| 0.expr()),
                     &tx_table,
                     &rw_table,
                     &bytecode_table,
