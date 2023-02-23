@@ -97,9 +97,9 @@ impl<F: Field> Chip<F> {
 
     pub fn load(&self, layouter: &mut impl Layouter<F>) -> Result<(), Error> {
         for (column, exponent) in [
-            (self.config.u8, 8),
+            (self.config.u8, 10),
             (self.config.u10, 10),
-            (self.config.u16, 16),
+            (self.config.u16, 10),
         ] {
             layouter.assign_region(
                 || format!("assign u{} fixed column", exponent),

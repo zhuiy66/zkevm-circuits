@@ -1,9 +1,7 @@
 use halo2_proofs::{
     arithmetic::Field,
     circuit::{AssignedCell, Layouter, SimpleFloorPlanner, Value},
-    halo2curves::{
-        group::prime::PrimeCurveAffine, pairing::Engine, serde::SerdeObject, CurveAffine,
-    },
+    halo2curves::{pairing::Engine, serde::SerdeObject, CurveAffine},
     plonk::{Circuit, ConstraintSystem, Error},
     poly::{commitment::ParamsProver, kzg::commitment::ParamsKZG},
 };
@@ -26,7 +24,7 @@ use snark_verifier::{
     util::arithmetic::{fe_to_limbs, FieldExt, MultiMillerLoop},
     verifier::{self, plonk::PlonkProtocol, SnarkVerifier},
 };
-use std::{io, iter, rc::Rc};
+use std::{iter, rc::Rc};
 
 /// Number of limbs to decompose a elliptic curve base field element into.
 pub const LIMBS: usize = 4;
@@ -327,18 +325,18 @@ where
                 snark.instances,
                 &mut transcript,
             )?;
-            for commitment in iter::empty()
-                .chain(snark.protocol.preprocessed.iter())
-                .chain(proof.witnesses.iter())
-                .chain(proof.quotients.iter())
-            {
-                if bool::from(commitment.is_identity()) {
-                    return Err(snark_verifier::Error::Transcript(
-                        io::ErrorKind::Other,
-                        "Identity point in preprocessed or proof is not yet supported".to_string(),
-                    ));
-                }
-            }
+            // for commitment in iter::empty()
+            //     .chain(snark.protocol.preprocessed.iter())
+            //     .chain(proof.witnesses.iter())
+            //     .chain(proof.quotients.iter())
+            // {
+            //     if bool::from(commitment.is_identity()) {
+            //         return Err(snark_verifier::Error::Transcript(
+            //             io::ErrorKind::Other,
+            //             "Identity point in preprocessed or proof is not yet
+            // supported".to_string(),         ));
+            //     }
+            // }
             PlonkSuccinctVerifier::verify(&svk, snark.protocol, snark.instances, &proof)
         })
         .try_collect::<_, Vec<_>, _>()?

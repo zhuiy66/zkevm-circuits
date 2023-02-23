@@ -81,7 +81,7 @@ impl<F: Field> SignVerifyChip<F> {
         // The value rows_range_chip_table has been optained by patching the halo2
         // library to report the number of rows used in the range chip table
         // region. TODO: Figure out a way to get these numbers automatically.
-        let rows_range_chip_table = 295188;
+        let rows_range_chip_table = 0;
         let rows_ecc_chip_aux = 226;
         let rows_ecdsa_chip_verification = 140360;
         let rows_signature_address_verify = 76;
@@ -624,21 +624,21 @@ impl<F: Field> SignVerifyChip<F> {
         }
         let main_gate = MainGate::new(config.main_gate_config.clone());
         let range_chip = RangeChip::new(config.range_config.clone());
-        let mut ecc_chip = GeneralEccChip::<Secp256k1Affine, F, NUMBER_OF_LIMBS, BIT_LEN_LIMB>::new(
+        let ecc_chip = GeneralEccChip::<Secp256k1Affine, F, NUMBER_OF_LIMBS, BIT_LEN_LIMB>::new(
             config.ecc_chip_config(),
         );
         let cloned_ecc_chip = ecc_chip.clone();
         let scalar_chip = cloned_ecc_chip.scalar_field_chip();
 
-        layouter.assign_region(
-            || "ecc chip aux",
-            |region| {
-                let mut ctx = RegionCtx::new(region, 0);
-                self.assign_aux(&mut ctx, &mut ecc_chip)?;
-                log::debug!("ecc chip aux: {} rows", ctx.offset());
-                Ok(())
-            },
-        )?;
+        // layouter.assign_region(
+        //     || "ecc chip aux",
+        //     |region| {
+        //         let mut ctx = RegionCtx::new(region, 0);
+        //         self.assign_aux(&mut ctx, &mut ecc_chip)?;
+        //         log::debug!("ecc chip aux: {} rows", ctx.offset());
+        //         Ok(())
+        //     },
+        // )?;
 
         let ecdsa_chip = EcdsaChip::new(ecc_chip.clone());
 

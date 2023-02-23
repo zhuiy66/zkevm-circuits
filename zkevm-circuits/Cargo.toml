@@ -48,7 +48,7 @@ mock = { path = "../mock" }
 pretty_assertions = "1.0.0"
 
 [features]
-default = []
+default = ["mock"]
 test = ["ethers-signers", "mock"]
 test-circuits = []
 warn-unimplemented = ["eth-types/warn-unimplemented"]

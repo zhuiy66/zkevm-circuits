@@ -180,7 +180,7 @@ impl<F: Field> EvmCircuit<F> {
     pub fn new(block: Block<F>) -> Self {
         Self {
             block: Some(block),
-            fixed_table_tags: FixedTableTag::iter().collect(),
+            fixed_table_tags: vec![],
         }
     }
 

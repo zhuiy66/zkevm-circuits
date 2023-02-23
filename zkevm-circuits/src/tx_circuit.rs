@@ -370,7 +370,7 @@ impl<F: Field> SubCircuit<F> for TxCircuit<F> {
             })
             .try_collect()?;
 
-        config.load_aux_tables(layouter)?;
+        // config.load_aux_tables(layouter)?;
         let assigned_sig_verifs =
             self.sign_verify
                 .assign(&config.sign_verify, layouter, &sign_datas, challenges)?;

@@ -1233,21 +1233,21 @@ impl<F: Field> SubCircuit<F> for PiCircuit<F> {
         _challenges: &Challenges<Value<F>>,
         layouter: &mut impl Layouter<F>,
     ) -> Result<(), Error> {
-        layouter.assign_region(
-            || "fixed u16 table",
-            |mut region| {
-                for i in 0..(1 << 16) {
-                    region.assign_fixed(
-                        || format!("row_{}", i),
-                        config.fixed_u16,
-                        i,
-                        || Value::known(F::from(i as u64)),
-                    )?;
-                }
+        // layouter.assign_region(
+        //     || "fixed u16 table",
+        //     |mut region| {
+        //         for i in 0..(1 << 16) {
+        //             region.assign_fixed(
+        //                 || format!("row_{}", i),
+        //                 config.fixed_u16,
+        //                 i,
+        //                 || Value::known(F::from(i as u64)),
+        //             )?;
+        //         }
 
-                Ok(())
-            },
-        )?;
+        //         Ok(())
+        //     },
+        // )?;
         let pi_cells = layouter.assign_region(
             || "region 0",
             |mut region| {
