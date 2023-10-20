@@ -1,0 +1,15 @@
+[package]
+name = "zkevm-circuits"
+version = "0.1.0"
+authors = ["therealyingtong <yingtong@z.cash>"]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+halo2_proofs = { git = "https://github.com/han0110/halo2.git", branch = "feature/for-benchmark" }
+eth-types = { path = "../eth-types" }
+gadgets = { path = "../gadgets" }
+array-init = "2.0.0"
+ethers-core = "2.0.7"
+itertools = "0.10.3"
+log = "0.4"

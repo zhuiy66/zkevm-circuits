@@ -1,0 +1,7 @@
+[workspace]
+members = [
+    "zkevm-circuits",
+    "gadgets",
+    "eth-types",
+]
+resolver = "2"

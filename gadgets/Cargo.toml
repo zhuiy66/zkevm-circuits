@@ -1,0 +1,14 @@
+[package]
+name = "gadgets"
+version = "0.1.0"
+edition = "2021"
+authors = ["The appliedzkp team"]
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+halo2_proofs = { git = "https://github.com/han0110/halo2.git", branch = "feature/for-benchmark" }
+eth-types = { path = "../eth-types" }
+
+[dev-dependencies]
+rand_xorshift = "0.3"
+rand = "0.8"
