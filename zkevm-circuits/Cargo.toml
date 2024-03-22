@@ -6,7 +6,7 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-halo2_proofs = { git = "https://github.com/han0110/halo2.git", branch = "feature/for-benchmark" }
+halo2_proofs = { git = "https://github.com/zhuiy66/halo2.git", branch = "feature/for-benchmark" }
 eth-types = { path = "../eth-types" }
 gadgets = { path = "../gadgets" }
 array-init = "2.0.0"
